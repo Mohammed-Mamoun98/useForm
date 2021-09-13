@@ -17,16 +17,32 @@ export const useForm = ({
     onSubmit: handleSubmit,
     ...rest
   });
-  const { handleChange, handleBlur, setFieldValue, values, errors } = formik;
+  const {
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    setFieldTouched,
+    values,
+    errors,
+    touched
+  } = formik;
+
+  const getKeys = obj => Object.keys(obj);
+
+  const hasError = fieldName => {
+    const errosKeys = getKeys(errors);
+    const touchedKeys = getKeys(touched);
+    return errosKeys.includes(fieldName) && touchedKeys.includes(fieldName);
+  };
 
   const render = useCallback(
     children => {
-      console.log('render');
       return (
         <form
           onSubmit={formik.handleSubmit}
           style={{ display: 'flex', flexDirection: 'column' }}
         >
+          {JSON.stringify({ touched, errors })}
           {fields.map(field => (
             <>
               {field?.render ? (
@@ -41,7 +57,7 @@ export const useForm = ({
                     onBlur={handleBlur}
                     value={values?.[field.name]}
                     style={{
-                      border: errors?.[field.name] ? '1px red solid' : '',
+                      border: hasError(field.name) ? '1px red solid' : '',
                       outline: 'none'
                     }}
                   />
@@ -53,7 +69,7 @@ export const useForm = ({
         </form>
       );
     },
-    [formik.values, formik.errors]
+    [formik.values, formik.errors, formik.touched]
   );
   return [render, formik];
 };
