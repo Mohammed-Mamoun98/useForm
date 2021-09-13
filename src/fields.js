@@ -1,4 +1,15 @@
 import React from 'react';
+import * as yup from 'yup';
+
+export const validationSchema = yup.object().shape({
+  name: yup
+    .string('')
+    .min(12, 'min is 12 chars')
+    .required('Field is required'),
+  age: yup.number().required('Field is required'),
+  country: yup.string().required('Field is required')
+});
+
 export const fields = [
   {
     name: 'name',
