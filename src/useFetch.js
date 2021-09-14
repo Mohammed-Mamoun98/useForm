@@ -13,10 +13,12 @@ export const useFetch = (url, baseConfig = {}) => {
       .then(rawResponse => rawResponse.json())
       .then(_response => {
         setResponse(_response);
+        throw new Error('NETWORK ERROR');
         config.onSuccess?.(_response);
       })
       .catch(err => {
         setError(err.message);
+        setResponse(null);
         config.onError?.(err);
       })
       .finally(() => {

@@ -7,16 +7,13 @@ import './style.css';
 
 export default function App() {
   const [render, formik] = useForm({ fields, validationSchema });
-  const url = 'https://jsonplaceholder.typicode.com/todos/1';
-  const [fetchTodo, todo, loading] = useFetch(url);
+  const url = 'https://jsonplaceholder.typicode.com/todos/gd1';
+  const [fetchTodo, todo, loading, err] = useFetch(url);
 
-
-  const onSuccess = ()=>{
-    alert('')
-  }
+  const onSuccess = res => {};
 
   useEffect(() => {
-    fetchTodo();
+    fetchTodo({ onSuccess });
   }, []);
 
   return (
@@ -26,7 +23,7 @@ export default function App() {
       {/* Everyone of them is maintaing it's own state  */}
       <Provider />
       <Provider />
-      {JSON.stringify({ todo, loading })}
+      {JSON.stringify({ todo, loading, err })}
     </div>
   );
 }
