@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
 
+const sleep = (ms = 6000) => new Promise((res, rej) => setTimeout(res, ms));
+
 export const useFetch = (url, baseConfig = {}) => {
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const fetchReq = (extraConfig = {}) => {
+  const fetchReq = async (extraConfig = {}) => {
     const url = 'https://jsonplaceholder.typicode.com/todos/1';
     const config = { ...baseConfig, ...extraConfig };
     setLoading(true);
+    await sleep();
     fetch(url)
       .then(rawResponse => rawResponse.json())
       .then(_response => {
@@ -18,7 +21,7 @@ export const useFetch = (url, baseConfig = {}) => {
       })
       .catch(err => {
         setError(err.message);
-        setResponse(null);
+        setResponse({});
         config.onError?.(err);
       })
       .finally(() => {
