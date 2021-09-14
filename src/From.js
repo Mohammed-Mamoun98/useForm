@@ -32,7 +32,7 @@ export const useForm = ({
   const hasError = fieldName => {
     const errosKeys = getKeys(errors);
     const touchedKeys = getKeys(touched);
-    return errosKeys.includes(fieldName) && touchedKeys.includes(fieldName);
+    return errosKeys.includes(fieldName);
   };
 
   const render = useCallback(
