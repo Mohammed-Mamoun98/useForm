@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from './From.js';
+import { useFetch } from './useFetch.js';
 import { fields, validationSchema } from './fields.js';
 import { Provider } from './ContextProvider.jsx';
 import './style.css';
 
 export default function App() {
   const [render, formik] = useForm({ fields, validationSchema });
+  const url = 'https://jsonplaceholder.typicode.com/todos/1';
+  const [fetchTodo, todo, loading] = useFetch(url);
+
+
+  const onSuccess = ()=>{
+    alert('')
+  }
+
+  useEffect(() => {
+    fetchTodo();
+  }, []);
+
   return (
     <div>
       {JSON.stringify(formik.values)}
@@ -13,6 +26,7 @@ export default function App() {
       {/* Everyone of them is maintaing it's own state  */}
       <Provider />
       <Provider />
+      {JSON.stringify({ todo, loading })}
     </div>
   );
 }
