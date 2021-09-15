@@ -4,6 +4,7 @@ import * as yup from 'yup';
 export const validationSchema = yup.object().shape({
   name: yup
     .string('')
+    .email('should be email')
     .min(5, 'min is 12 chars')
     .required('Field is required'),
   age: yup.number().required('Field is required'),

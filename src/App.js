@@ -21,9 +21,9 @@ export default function App() {
       {JSON.stringify(formik.values)}
       {render(<button type="submit">test</button>)}
       {/* Everyone of them is maintaing it's own state  */}
-      <Provider />
-      <Provider />
-      {JSON.stringify({ todo, loading, err })}
+      {/* <Provider /> */}
+      {/* <Provider /> */}
+      {/* {JSON.stringify({ todo, loading, err })} */}
     </div>
   );
 }
