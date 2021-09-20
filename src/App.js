@@ -10,7 +10,9 @@ export default function App() {
   const url = 'https://jsonplaceholder.typicode.com/todos/gd1';
   const [fetchTodo, todo, loading, err] = useFetch(url);
 
-  const onSuccess = res => {};
+  const onSuccess = (res) => {
+    alert(JSON.stringify(res));
+  };
 
   useEffect(() => {
     fetchTodo({ onSuccess });
@@ -18,12 +20,12 @@ export default function App() {
 
   return (
     <div>
-      {JSON.stringify(formik.values)}
-      {render(<button type="submit">test</button>)}
+      {/* {JSON.stringify(formik.values)} */}
+      {/* {render(<button type="submit">test</button>)} */}
       {/* Everyone of them is maintaing it's own state  */}
       {/* <Provider /> */}
       {/* <Provider /> */}
-      {/* {JSON.stringify({ todo, loading, err })} */}
+      {JSON.stringify({ todo, loading, err })}
     </div>
   );
 }

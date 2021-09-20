@@ -13,13 +13,13 @@ export const useFetch = (url, baseConfig = {}) => {
     setLoading(true);
     await sleep();
     fetch(url)
-      .then(rawResponse => rawResponse.json())
-      .then(_response => {
+      .then((rawResponse) => rawResponse.json())
+      .then((_response) => {
         setResponse(_response);
-        throw new Error('NETWORK ERROR');
+        // throw new Error('NETWORK ERROR');
         config.onSuccess?.(_response);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setResponse({});
         config.onError?.(err);
@@ -28,5 +28,9 @@ export const useFetch = (url, baseConfig = {}) => {
         setLoading(false);
       });
   };
+
+  useEffect(() => {
+    if (baseConfig.initReq) fetchReq();
+  }, []);
   return [fetchReq, response, loading, error];
 };
