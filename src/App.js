@@ -8,11 +8,11 @@ import './style.css';
 export default function App() {
   const [render, formik] = useForm({ fields, validationSchema });
   const url = 'https://jsonplaceholder.typicode.com/todos/gd1';
-  const [fetchTodo, todo, loading, err] = useFetch(url);
+  const [fetchTodo, todo, loading, err] = useFetch(
+    'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+  );
 
-  const onSuccess = (res) => {
-    alert(JSON.stringify(res));
-  };
+  const onSuccess = (res) => {};
 
   useEffect(() => {
     fetchTodo({ onSuccess });
@@ -25,7 +25,7 @@ export default function App() {
       {/* Everyone of them is maintaing it's own state  */}
       {/* <Provider /> */}
       {/* <Provider /> */}
-      {JSON.stringify({ todo, loading, err })}
+      {JSON.stringify({ a: todo?.ethereum?.usd, loading, err })}
     </div>
   );
 }
