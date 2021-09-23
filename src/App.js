@@ -12,20 +12,34 @@ export default function App() {
     'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
   );
 
+  const [input, setInpout] = useState('');
+  const [_data, _setData] = useState('');
+
+  const readData = (key) => localStorage.getItem(key);
+  const setData = () => localStorage.setItem('test', input);
+
   const onSuccess = (res) => {};
+
+  const onChange = ({ target: { value } }) => setInpout(value);
 
   useEffect(() => {
     fetchTodo({ onSuccess });
+
+    window.addEventListener('storage', () => {
+      // When local storage changes, dump the list to
+      // the console.
+      _setData(window.localStorage.getItem('test'));
+    });
   }, []);
+  const data = readData('test');
 
   return (
     <div>
-      {/* {JSON.stringify(formik.values)} */}
-      {/* {render(<button type="submit">test</button>)} */}
-      {/* Everyone of them is maintaing it's own state  */}
-      {/* <Provider /> */}
-      {/* <Provider /> */}
-      {JSON.stringify({ a: todo?.ethereum?.usd, loading, err })}
+      <button onClick={setData}>setData</button>
+      <button>read</button>
+      <input onChange={onChange} />
+      {_data}
+      {/* {JSON.stringify({ a: todo?.ethereum?.usd, loading, err })} */}
     </div>
   );
 }
