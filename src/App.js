@@ -41,11 +41,14 @@ export default function App() {
   }, [count]);
   const data = readData('test');
 
+  const handleBlur = ({ target: { name, value } }) => {};
+
   return (
     <div>
       {JSON.stringify({ promiseRes, _loading, _err })}
       <button onClick={() => setCount((c) => c + 1)}>+</button>
       {count}
+      <input onBlur={handleBlur} name="test" />
       {/* {JSON.stringify({ a: todo?.ethereum?.usd, loading, err })} */}
     </div>
   );

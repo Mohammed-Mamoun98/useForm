@@ -29,6 +29,6 @@ export const useFetch = (url, baseConfig = {}) => {
 
   useEffect(() => {
     if (baseConfig.initReq) fetchReq();
-  }, []);
+  }, [url]);
   return [fetchReq, response, loading, error];
 };
