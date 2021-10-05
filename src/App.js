@@ -6,49 +6,54 @@ import { fields, validationSchema } from './fields.js';
 import { Provider } from './ContextProvider.jsx';
 import './style.css';
 
+const promise = () =>
+  new Promise((res, rej) => {
+    console.log('first Prmise');
+    setTimeout(() => {
+      return new Promise((res) => setTimeout(() => res(5), 1000)).then(
+        (value) => res(value)
+      );
+    }, 2000);
+  });
+
 export default function App() {
   const [render, formik] = useForm({ fields, validationSchema });
   const url = 'https://jsonplaceholder.typicode.com/todos/gd1';
-  const [fetchTodo, todo, loading, err] = useFetch(
-    'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
-  );
+  // const [fetchTodo, todo, loading, err] = useFetch(
+  //   'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+  // );
 
-  const [input, setInpout] = useState('');
-  const [_data, _setData] = useState('');
-  const [count, setCount] = useState(0);
+  const [getThing, thing, loading, err] = usePromise(promise, {
+    onSuccess: (value) => alert('we got this' + value),
+  });
 
-  const sleep = (ms = 2000) =>
-    new Promise((res, rej) => setTimeout(() => res('TEST'), ms));
+  // const [input, setInpout] = useState('');
+  // const [_data, _setData] = useState('');
+  // const [count, setCount] = useState(0);
 
-  const [execPrmoise, promiseRes, _loading, _err] = usePromise(sleep);
+  // const sleep = (ms = 2000) =>
+  //   new Promise((res, rej) => setTimeout(() => res('TEST'), ms));
 
-  const readData = (key) => localStorage.getItem(key);
-  const setData = () => localStorage.setItem('test', input);
+  // const [execPrmoise, promiseRes, _loading, _err] = usePromise(sleep);
 
-  const onSuccess = (res) => {};
+  // const readData = (key) => localStorage.getItem(key);
+  // const setData = () => localStorage.setItem('test', input);
 
-  const onChange = ({ target: { value } }) => setInpout(value);
+  // const onSuccess = (res) => {};
 
-  useEffect(() => {
-    // fetchTodo({ onSuccess });
-
-    // window.addEventListener('storage', () => {
-    //   // When local storage changes, dump the list to
-    //   // the console.
-    //   _setData(window.localStorage.getItem('test'));
-    // });
-    if (count) execPrmoise();
-  }, [count]);
-  const data = readData('test');
+  // const onChange = ({ target: { value } }) => setInpout(value);
 
   const handleBlur = ({ target: { name, value } }) => {};
 
   return (
     <div>
-      {JSON.stringify({ promiseRes, _loading, _err })}
+      <button onClick={getThing}>fetcha</button>
+      {JSON.stringify({ thing, loading, err })}
+
+      {/* {JSON.stringify({ promiseRes, _loading, _err })}
       <button onClick={() => setCount((c) => c + 1)}>+</button>
       {count}
-      <input onBlur={handleBlur} name="test" />
+      <input onBlur={handleBlur} name="test" /> */}
       {/* {JSON.stringify({ a: todo?.ethereum?.usd, loading, err })} */}
     </div>
   );

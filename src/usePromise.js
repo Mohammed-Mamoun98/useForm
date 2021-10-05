@@ -10,6 +10,7 @@ export const usePromise = (prmiseFunction = () => {}, baseConfig = {}) => {
     prmiseFunction()
       .then((value) => {
         setResponse(value);
+        baseConfig.onSuccess?.(value);
       })
       .catch((err) => {
         setError(err);
