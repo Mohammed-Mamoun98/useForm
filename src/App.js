@@ -16,6 +16,12 @@ const promise = () =>
     }, 2000);
   });
 
+const multiParamFunction = (param1, parm2) => {
+  console.log({ param1, parm2 });
+};
+
+multiParamFunction(...[1, 2]);
+
 export default function App() {
   const [render, formik] = useForm({ fields, validationSchema });
   const url = 'https://jsonplaceholder.typicode.com/todos/gd1';
