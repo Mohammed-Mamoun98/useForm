@@ -20,6 +20,11 @@ const multiParamFunction = (param1, parm2) => {
   console.log({ param1, parm2 });
 };
 
+function multiParam(...rest) {
+  console.log({ rest });
+}
+multiParam(1, 2, 3);
+
 multiParamFunction(...[1, 2]);
 
 export default function App() {
