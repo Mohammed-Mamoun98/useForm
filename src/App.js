@@ -6,6 +6,10 @@ import { fields, validationSchema } from './fields.js';
 import { Provider } from './ContextProvider.jsx';
 import './objectMapper.js';
 import './style.css';
+const Comp = ({ prop, ...rest }) => {
+  console.log({ rest: rest.a });
+  return <></>;
+};
 
 const promise = () =>
   new Promise((res, rej) => {
@@ -59,7 +63,7 @@ export default function App() {
     <div>
       <button onClick={getThing}>fetcha</button>
       {JSON.stringify({ thing, loading, err })}
-
+      <Comp a={1} b={2} />
       {/* {JSON.stringify({ promiseRes, _loading, _err })}
       <button onClick={() => setCount((c) => c + 1)}>+</button>
       {count}
