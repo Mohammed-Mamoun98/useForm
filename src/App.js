@@ -4,6 +4,7 @@ import { useFetch } from './useFetch.js';
 import { usePromise } from './usePromise.js';
 import { fields, validationSchema } from './fields.js';
 import { Provider } from './ContextProvider.jsx';
+import './objectMapper.js';
 import './style.css';
 
 const promise = () =>
@@ -16,9 +17,7 @@ const promise = () =>
     }, 2000);
   });
 
-const multiParamFunction = (param1, parm2) => {
-  console.log({ param1, parm2 });
-};
+const multiParamFunction = (param1, parm2) => {};
 
 function multiParam(...rest) {
   console.log({ rest });
